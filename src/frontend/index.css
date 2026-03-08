@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Fonts ─────────────────────────────────────────────── */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Design Tokens (Law Enforcement Dark Theme) ─────────── */
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Deep navy background */
+    --background: 0.11 0.018 248;
+    --foreground: 0.92 0.012 220;
+    --card: 0.15 0.022 245;
+    --card-foreground: 0.92 0.012 220;
+    --popover: 0.13 0.018 246;
+    --popover-foreground: 0.92 0.012 220;
+
+    /* Amber/gold as primary — authoritative warning accent */
+    --primary: 0.78 0.16 72;
+    --primary-foreground: 0.10 0.02 72;
+
+    --secondary: 0.19 0.022 246;
+    --secondary-foreground: 0.80 0.012 220;
+
+    --muted: 0.18 0.018 246;
+    --muted-foreground: 0.52 0.022 230;
+
+    --accent: 0.78 0.16 72;
+    --accent-foreground: 0.10 0.02 72;
+
+    --destructive: 0.58 0.22 22;
+    --destructive-foreground: 0.97 0 0;
+
+    --border: 0.24 0.020 246;
+    --input: 0.19 0.018 246;
+    --ring: 0.78 0.16 72;
+
+    --success: 0.68 0.18 155;
+    --success-foreground: 0.08 0.02 155;
+
+    --warning: 0.78 0.16 72;
+    --warning-foreground: 0.10 0.02 72;
+
+    --chart-1: 0.78 0.16 72;
+    --chart-2: 0.58 0.22 22;
+    --chart-3: 0.68 0.18 155;
+    --chart-4: 0.60 0.20 260;
+    --chart-5: 0.62 0.15 195;
+
+    --sidebar: 0.09 0.015 250;
+    --sidebar-foreground: 0.88 0.012 220;
+    --sidebar-primary: 0.78 0.16 72;
+    --sidebar-primary-foreground: 0.10 0.02 72;
+    --sidebar-accent: 0.16 0.020 248;
+    --sidebar-accent-foreground: 0.80 0.012 220;
+    --sidebar-border: 0.20 0.018 248;
+    --sidebar-ring: 0.78 0.16 72;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    background-image:
+      radial-gradient(
+        ellipse 100% 50% at 50% -10%,
+        oklch(0.20 0.045 250 / 0.5) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 0% 100%,
+        oklch(0.15 0.030 260 / 0.3) 0%,
+        transparent 60%
+      );
+    min-height: 100vh;
+  }
+}
+
+/* ─── Utility Classes ────────────────────────────────────── */
+@layer utilities {
+  .font-mono-nums {
+    font-family: "JetBrains Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .text-amber {
+    color: oklch(var(--primary));
+  }
+
+  .bg-glow-amber {
+    box-shadow: 0 0 40px oklch(var(--primary) / 0.12),
+                0 0 80px oklch(var(--primary) / 0.05);
+  }
+
+  .border-glow-amber {
+    border-color: oklch(var(--primary) / 0.35);
+    box-shadow: 0 0 0 1px oklch(var(--primary) / 0.08) inset;
+  }
+
+  .badge-danger {
+    background-color: oklch(0.58 0.22 22 / 0.15);
+    color: oklch(0.72 0.20 22);
+    border-color: oklch(0.58 0.22 22 / 0.3);
+  }
+
+  .badge-warning {
+    background-color: oklch(0.78 0.16 72 / 0.15);
+    color: oklch(0.78 0.16 72);
+    border-color: oklch(0.78 0.16 72 / 0.35);
+  }
+
+  .badge-success {
+    background-color: oklch(0.68 0.18 155 / 0.15);
+    color: oklch(0.68 0.18 155);
+    border-color: oklch(0.68 0.18 155 / 0.3);
+  }
+
+  .badge-info {
+    background-color: oklch(0.60 0.20 250 / 0.15);
+    color: oklch(0.72 0.15 240);
+    border-color: oklch(0.60 0.20 250 / 0.3);
+  }
+
+  .scanline-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      oklch(0.08 0.01 250 / 0.08) 2px,
+      oklch(0.08 0.01 250 / 0.08) 4px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .grid-dot-pattern {
+    background-image: radial-gradient(
+      circle,
+      oklch(0.35 0.020 246 / 0.4) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+}
+
+/* ─── Keyframes ──────────────────────────────────────────── */
+@keyframes accordion-down {
+  from { height: 0 }
+  to { height: var(--radix-accordion-content-height) }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height) }
+  to { height: 0 }
+}
+
+@keyframes flash-sweep {
+  0% { opacity: 0; transform: translateY(-100%); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(100%); }
+}
+
+@keyframes pulse-amber {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.78 0.16 72 / 0); }
+  50% { box-shadow: 0 0 20px 4px oklch(0.78 0.16 72 / 0.3); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes blink-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-flash-sweep {
+  animation: flash-sweep 0.6s ease-out forwards;
+}
+
+.animate-pulse-amber {
+  animation: pulse-amber 2.5s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    105deg,
+    oklch(0.19 0.018 246) 30%,
+    oklch(0.26 0.025 240 / 0.5) 50%,
+    oklch(0.19 0.018 246) 70%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.5s linear infinite;
+}
+
+.animate-blink {
+  animation: blink-dot 1.4s ease-in-out infinite;
+}
+
+/* ─── Print Styles ───────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  body { background: white !important; color: black !important; }
+  .sidebar-nav { display: none !important; }
+}
